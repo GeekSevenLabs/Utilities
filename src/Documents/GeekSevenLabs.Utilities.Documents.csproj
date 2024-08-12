@@ -1,9 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>GeekSevenLabs.Utilities.Documents</PackageId>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Company>GeekSevenLabs</Company>
+        <Authors>Emerson Trindade (MensoDev)</Authors>
+        <Copyright>Copyright 2024 Menso</Copyright>
+        <PackageTags>C#, Csharp, CPF, Generator, Validator</PackageTags>
+        <PackageDescription>Documents generator</PackageDescription>
+        <RepositoryUrl>https://github.com/GeekSevenLabs/Utilities</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IsTrimmable>true</IsTrimmable>
+        <TrimMode>link</TrimMode>
+        <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../../docs/Documents/README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
 </Project>
