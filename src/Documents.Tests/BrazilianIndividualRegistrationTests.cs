@@ -160,7 +160,7 @@ public class BrazilianIndividualRegistrationTests
     public void Generate_WhenRegionIsNotNullAndFormattedIsFalse_ReturnsValidIndividualRegistration()
     {
         // Arrange and Act
-        var individualRegistration = BrazilianIndividualRegistration.Generate(1);
+        var individualRegistration = BrazilianIndividualRegistration.Generate(region: 1);
 
         // Assert
         individualRegistration.Should().MatchRegex(@"^\d{8}1\d{2}$");
@@ -171,7 +171,7 @@ public class BrazilianIndividualRegistrationTests
     public void Generate_WhenRegionIsNotNullAndFormattedIsTrue_ReturnsValidFormattedIndividualRegistration()
     {
         // Arrange and Act
-        var individualRegistration = BrazilianIndividualRegistration.Generate(1, true);
+        var individualRegistration = BrazilianIndividualRegistration.Generate(region: 1, formatted: true);
 
         // Assert
         individualRegistration.Should().MatchRegex(@"^\d{3}.\d{3}.\d{2}1-\d{2}$");

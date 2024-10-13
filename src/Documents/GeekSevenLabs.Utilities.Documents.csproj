@@ -11,7 +11,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Company>GeekSevenLabs</Company>
         <Authors>Emerson Trindade (MensoDev)</Authors>
-        <Copyright>Copyright 2024 Menso</Copyright>
+        <Copyright>Copyright 2024 GeekSeven Labs</Copyright>
         <PackageTags>C#, Csharp, CPF, Generator, Validator</PackageTags>
         <PackageDescription>Documents generator</PackageDescription>
         <RepositoryUrl>https://github.com/GeekSevenLabs/Utilities</RepositoryUrl>
