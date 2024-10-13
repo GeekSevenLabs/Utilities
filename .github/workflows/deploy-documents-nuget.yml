@@ -54,6 +54,7 @@ jobs:
             6.0.x
             7.0.x
             8.0.x
+            9.0.x
       - name: Pack nuget package
         run: dotnet pack -c Release --output nupkgs /p:PackageVersion=${{ needs.get-version.outputs.VERSION }} /p:AssemblyVersion=${{ needs.get-version.outputs.VERSION }} /p:Version=${{ needs.get-version.outputs.VERSION }}
         working-directory: ./
