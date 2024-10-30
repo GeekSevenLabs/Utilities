@@ -10,6 +10,11 @@ public static class NationalRegistryLegalEntities
     private static readonly char[] NumbersChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     private static readonly char[] LettersChars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+    /// <summary>
+    /// Check if the national registry of legal entities (CNPJ) is valid.
+    /// </summary>
+    /// <param name="nationalRegistryOfLegalEntities"> CNPJ: ex 00.000.000/0000-00 or 00000000000000 </param>
+    /// <returns> True when national registry of legal entities (CNPJ) is valid </returns>
     public static bool IsValid(string nationalRegistryOfLegalEntities)
     {
         if (string.IsNullOrWhiteSpace(nationalRegistryOfLegalEntities))
@@ -39,9 +44,15 @@ public static class NationalRegistryLegalEntities
                secondVerificationDigit == cleanedNationalRegistryOfLegalEntities[13].ToDigit();
     }
     
+    /// <summary>
+    /// Generate a random national registry of legal entities (CNPJ).
+    /// </summary>
+    /// <param name="formatted"> Format the national registry of legal entities (CNPJ) Ex: 00.000.000/0000-00. </param>
+    /// <param name="useLetters"> Use letters in the national registry of legal entities (CNPJ) Ex: AB.CDE.FGH/IJKL-MN. </param>
+    /// <returns></returns>
     public static string Generate(bool formatted = false, bool useLetters = false)
     {
-        string nationalRegistryOfLegalEntities = string.Empty;
+        var nationalRegistryOfLegalEntities = string.Empty;
 
         if (useLetters)
         {
@@ -62,6 +73,11 @@ public static class NationalRegistryLegalEntities
         return formatted ? Format(nationalRegistryOfLegalEntities) : nationalRegistryOfLegalEntities;
     }
     
+    /// <summary>
+    /// Format the national registry of legal entities (CNPJ) Ex: 00.000.000/0000-00.
+    /// </summary>
+    /// <param name="nationalRegistryOfLegalEntities"> National registry of legal entities (CNPJ) Ex: 00000000000000. </param>
+    /// <returns> Formatted national registry of legal entities (CNPJ) Ex: 00.000.000/0000-00. </returns>
     public static string Format(string nationalRegistryOfLegalEntities)
     {
         if (string.IsNullOrWhiteSpace(nationalRegistryOfLegalEntities))
@@ -109,7 +125,5 @@ public static class NationalRegistryLegalEntities
         var rest = sum % 11;
         return rest < 2 ? 0 : 11 - rest;
     }
-
-    
     
 }
