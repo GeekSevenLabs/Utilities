@@ -30,8 +30,8 @@ public static class BrazilianIndividualRegistration
         var firstVerificationDigit = CalculateFirstVerificationDigit(individualRegistration);
         var secondVerificationDigit = CalculateSecondVerificationDigit(individualRegistration);
 
-        return firstVerificationDigit == ParseDigit(individualRegistration[9]) &&
-               secondVerificationDigit == ParseDigit(individualRegistration[10]);
+        return firstVerificationDigit == individualRegistration[9].ToDigit() &&
+               secondVerificationDigit == individualRegistration[10].ToDigit();
     }
 
     /// <summary>
@@ -87,8 +87,8 @@ public static class BrazilianIndividualRegistration
         var firstVerificationDigit = CalculateFirstVerificationDigit(individualRegistration);
         var secondVerificationDigit = CalculateSecondVerificationDigit(individualRegistration);
 
-        var isValid = firstVerificationDigit == ParseDigit(individualRegistration[9]) &&
-                      secondVerificationDigit == ParseDigit(individualRegistration[10]);
+        var isValid = firstVerificationDigit == individualRegistration[9].ToDigit() &&
+                      secondVerificationDigit == individualRegistration[10].ToDigit();
 
         return new BrazilianIndividualRegistrationInfo
         {
@@ -96,13 +96,18 @@ public static class BrazilianIndividualRegistration
             IsValid = isValid,
             FirstVerificationDigit = firstVerificationDigit,
             SecondVerificationDigit = secondVerificationDigit,
-            Region = ParseDigit(individualRegistration[8])
+            Region = individualRegistration[8].ToDigit()
         };
     }
 
     private static int CalculateFirstVerificationDigit(string individualRegistration)
     {
-        var sum = Multiplier.Select((mult, index) => ParseDigit(individualRegistration[index]) * mult).Sum();
+        var sum = 0;
+        
+        for(var i = 0; Multiplier.Length > i; i++)
+        {
+            sum += individualRegistration[i].ToDigit() * Multiplier[i];
+        }
 
         var rest = sum % 11;
         return rest < 2 ? 0 : 11 - rest;
@@ -110,11 +115,15 @@ public static class BrazilianIndividualRegistration
 
     private static int CalculateSecondVerificationDigit(string individualRegistration)
     {
-        var sum = Multiplier.Select((mult, index) => ParseDigit(individualRegistration[index + 1]) * mult).Sum();
+        var sum = 0;
+        
+        for(var i = 0; Multiplier.Length > i; i++)
+        {
+            sum += individualRegistration[i + 1].ToDigit() * Multiplier[i];
+        }
 
         var rest = sum % 11;
         return rest < 2 ? 0 : 11 - rest;
     }
 
-    private static int ParseDigit(char digit) => int.Parse(digit.ToString());
 }

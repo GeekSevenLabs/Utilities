@@ -6,4 +6,9 @@ internal static class StringExtensions
     {
         return string.IsNullOrWhiteSpace(value) ? string.Empty : new string(value.Where(char.IsDigit).ToArray());
     }
+    
+    public static string RemoveNonAlphabeticOrNumericCharacters(this string value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? string.Empty : new string(value.Where(char.IsLetterOrDigit).ToArray());
+    }
 }
