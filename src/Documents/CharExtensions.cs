@@ -32,7 +32,7 @@ internal static class CharExtensions
     /// <returns><c>true</c> if the character is a digit; otherwise, <c>false</c>.</returns>
     public static bool IsNumber(this char c) => c is >= '0' and <= '9';
 
-    // <summary>
+    /// <summary>
     /// Checks if the character is not a numeric digit (0-9).
     /// </summary>
     /// <param name="c">The character to check.</param>
