@@ -108,14 +108,9 @@ public static partial class CadastroNacionalPessoaJuridica
     {
         if (string.IsNullOrWhiteSpace(cnpj)) return CnpjPatternMatchResult.Invalid;
 
-        if (CreateCnpjRegex().IsMatch(cnpj)) return CnpjPatternMatchResult.ValidUnmasked;
-        if (CreateCnpjWithLettersRegex().IsMatch(cnpj)) return CnpjPatternMatchResult.ValidUnmaskedWithLetters;
-
-        if (CreateMaskedCnpjRegex().IsMatch(cnpj)) return CnpjPatternMatchResult.ValidMasked;
+        if (CreateUnmaskedCnpjRegex().IsMatch(cnpj)) return CnpjPatternMatchResult.ValidUnmasked;
         
-        return CreateMaskedCnpjWithLettersRegex().IsMatch(cnpj) ? 
-            CnpjPatternMatchResult.ValidMaskedWithLetters : 
-            CnpjPatternMatchResult.Invalid;
+        return CreateMaskedCnpjRegex().IsMatch(cnpj) ? CnpjPatternMatchResult.ValidMasked : CnpjPatternMatchResult.Invalid;
     }
 
     private static bool TryCleanAndPreValidation(string cnpj, [NotNullWhen(true)] out string? cleanedCnpj)
@@ -177,16 +172,11 @@ public static partial class CadastroNacionalPessoaJuridica
         var rest = sum % 11;
         return rest < 2 ? 0 : 11 - rest;
     }
-
-    [GeneratedRegex(@"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$")]
-    public static partial Regex CreateMaskedCnpjRegex();
+    
 
     [GeneratedRegex(@"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}/[0-9A-Z]{4}-\d{2}$")]
-    public static partial Regex CreateMaskedCnpjWithLettersRegex();
-
-    [GeneratedRegex(@"^\d{14}$")]
-    public static partial Regex CreateCnpjRegex();
+    public static partial Regex CreateMaskedCnpjRegex();
 
     [GeneratedRegex(@"^[0-9A-Z]{12}\d{2}$")]
-    public static partial Regex CreateCnpjWithLettersRegex();
+    public static partial Regex CreateUnmaskedCnpjRegex();
 }
