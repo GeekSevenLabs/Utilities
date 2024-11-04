@@ -406,7 +406,7 @@ public class CadastroNacionalPessoaJuridicaTests
         var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
 
         // Assert
-        regex.ToString().Should().Be(@"^[0-9A-Z]{14}$");
+        regex.ToString().Should().Be(@"^[0-9A-Z]{12}\d{2}$");
     }
     
     [Fact]
@@ -420,6 +420,20 @@ public class CadastroNacionalPessoaJuridicaTests
 
         // Assert
         regex.IsMatch(cnpj).Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CreateCnpjWithLettersRegex_RegexShouldNotMatchCnpj()
+    {
+        // Arrange
+        var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: false, useLetters: true);
+        cnpj = cnpj[..^1] + "A";
+
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
+
+        // Assert
+        regex.IsMatch(cnpj).Should().BeFalse();
     }
     
     [Fact]

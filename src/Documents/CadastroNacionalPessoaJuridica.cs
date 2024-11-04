@@ -187,6 +187,6 @@ public static partial class CadastroNacionalPessoaJuridica
     [GeneratedRegex(@"^\d{14}$")]
     public static partial Regex CreateCnpjRegex();
 
-    [GeneratedRegex(@"^[0-9A-Z]{14}$")]
+    [GeneratedRegex(@"^[0-9A-Z]{12}\d{2}$")]
     public static partial Regex CreateCnpjWithLettersRegex();
 }
