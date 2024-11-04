@@ -220,4 +220,202 @@ public class CadastroPessoaFisicaTests
         // Assert
         cpf.Should().Be(result);
     }
+    
+    [Fact]
+    public void Format_WhenCadastroPessoaFisicaHasNonNumericCharacters_ReturnsFormattedCadastroPessoaFisica()
+    {
+        // Arrange
+        const string cpf = "347.013.700-53";
+
+        // Act
+        var result = CadastroPessoaFisica.Format(cpf);
+
+        // Assert
+        result.Should().Be("347.013.700-53");
+    }
+    
+    [Fact]
+    public void Format_WhenCadastroPessoaFisicaIsNull_ReturnsNull()
+    {
+        // Arrange
+        string cpf = null!;
+
+        // Act
+        var result = CadastroPessoaFisica.Format(cpf);
+
+        // Assert
+        result.Should().BeNull();
+    }
+    
+    [Fact]
+    public void Format_WhenCadastroPessoaFisicaIsEmpty_ReturnsEmpty()
+    {
+        // Arrange
+        var cpf = string.Empty;
+
+        // Act
+        var result = CadastroPessoaFisica.Format(cpf);
+
+        // Assert
+        result.Should().BeEmpty();
+    }
+    
+    [Fact]
+    public void Format_WhenCadastroPessoaFisicaIsWhiteSpace_ReturnsWhiteSpace()
+    {
+        // Arrange
+        const string cpf = " ";
+
+        // Act
+        var result = CadastroPessoaFisica.Format(cpf);
+
+        // Assert
+        result.Should().Be(" ");
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCadastroPessoaFisicaIsNull_ReturnsFalse()
+    {
+        // Arrange
+        string cpf = null!;
+
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCadastroPessoaFisicaIsEmpty_ReturnsFalse()
+    {
+        // Arrange
+        var cpf = string.Empty;
+
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCadastroPessoaFisicaIsWhiteSpace_ReturnsFalse()
+    {
+        // Arrange
+        const string cpf = " ";
+
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData("144.442.344-5")]
+    [InlineData("543.434.32A-76")]
+    [InlineData("A822.420.106-62")]
+    public void IsValidPattern_WhenCadastroPessoaFisicaIsInvalidPattern_ReturnsFalse(string cpf)
+    {
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData("14444234457")]
+    [InlineData("54343432176")]
+    [InlineData("82242010662")]
+    public void IsValidPattern_WhenCadastroPessoaFisicaIsValidPattern_ReturnsTrue(string cpf)
+    {
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValidUnmasked.Should().BeTrue();
+        result.IsValidMasked.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData("144.442.344-57")]
+    [InlineData("543.434.321-76")]
+    [InlineData("822.420.106-62")]
+    public void IsValidPattern_WhenCadastroPessoaFisicaIsValidPatternWithMask_ReturnsTrue(string cpf)
+    {
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValidMasked.Should().BeTrue();
+        result.IsValidUnmasked.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCadastroPessoaFisicaHasLessThanElevenCharacters_ReturnsFalse()
+    {
+        // Arrange
+        const string cpf = "1249218543";
+
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCadastroPessoaFisicaHasMoreThanElevenCharacters_ReturnsFalse()
+    {
+        // Arrange
+        const string cpf = "347013700536";
+
+        // Act
+        var result = CadastroPessoaFisica.IsValidPattern(cpf);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void CreateFormattedCpfRegex_WhenCalled_ReturnsRegex()
+    {
+        // Arrange and Act
+        var regex = CadastroPessoaFisica.CreateFormattedCpfRegex();
+
+        // Assert
+        regex.Should().NotBeNull();
+    }
+    
+    [Fact]
+    public void CreateFormattedCpfRegex_WhenCalled_ReturnsRegexWithCorrectPattern()
+    {
+        // Arrange and Act
+        var regex = CadastroPessoaFisica.CreateFormattedCpfRegex();
+
+        // Assert
+        regex.ToString().Should().Be(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$");
+    }
+    
+    [Fact]
+    public void CreateCpfRegex_WhenCalled_ReturnsRegex()
+    {
+        // Arrange and Act
+        var regex = CadastroPessoaFisica.CreateCpfRegex();
+
+        // Assert
+        regex.Should().NotBeNull();
+    }
+    
+    [Fact]
+    public void CreateCpfRegex_WhenCalled_ReturnsRegexWithCorrectPattern()
+    {
+        // Arrange and Act
+        var regex = CadastroPessoaFisica.CreateCpfRegex();
+
+        // Assert
+        regex.ToString().Should().Be(@"^\d{11}$");
+    }
 }

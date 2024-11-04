@@ -3,7 +3,7 @@ namespace GeekSevenLabs.Utilities.Documents.Tests;
 public class CadastroNacionalPessoaJuridicaTests
 {
     [Fact]
-    public void IsValid_WhenCadastroNacionalPessoaJuridicaIsNull_ReturnsFalse()
+    public void IsValid_WhenCnpjIsNull_ReturnsFalse()
     {
         // Arrange
         string cnpj = null!;
@@ -16,7 +16,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void IsValid_WhenCadastroNacionalPessoaJuridicaIsEmpty_ReturnsFalse()
+    public void IsValid_WhenCnpjIsEmpty_ReturnsFalse()
     {
         // Arrange
         var cnpj = string.Empty;
@@ -29,7 +29,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void IsValid_WhenCadastroNacionalPessoaJuridicaIsWhitespace_ReturnsFalse()
+    public void IsValid_WhenCnpjIsWhitespace_ReturnsFalse()
     {
         // Arrange
         const string cnpj = " ";
@@ -42,7 +42,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void IsValid_WhenCadastroNacionalPessoaJuridicaIsInvalid_ReturnsFalse()
+    public void IsValid_WhenCnpjIsInvalid_ReturnsFalse()
     {
         // Arrange
         const string cnpj = "12.345.678/9123-12";
@@ -61,7 +61,7 @@ public class CadastroNacionalPessoaJuridicaTests
     [InlineData("55.361.889/0001-24")]
     [InlineData("73.508.530/0001-19")]
     [InlineData("0F.QU3.WLW/6SCR-69")]
-    public void IsValid_WhenCadastroNacionalPessoaJuridicaIsValid_ReturnsTrue(string cnpj)
+    public void IsValid_WhenCnpjIsValid_ReturnsTrue(string cnpj)
     {
         // Act
         var isValid = CadastroNacionalPessoaJuridica.IsValid(cnpj);
@@ -76,7 +76,7 @@ public class CadastroNacionalPessoaJuridicaTests
     [InlineData("99526994000141")]
     [InlineData("94993378000187")]
     [InlineData("0FQU3WLW6SCR69")]
-    public void IsValid_WhenCadastroNacionalPessoaJuridicaIsValidWithoutSpecialCharacters_ReturnsTrue(string cnpj)
+    public void IsValid_WhenCnpjIsValidWithoutSpecialCharacters_ReturnsTrue(string cnpj)
     {
         // Act
         var isValid = CadastroNacionalPessoaJuridica.IsValid(cnpj);
@@ -86,7 +86,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Generate_WhenFormattedIsTrue_ReturnsCadastroNacionalPessoaJuridicaWithSpecialCharacters()
+    public void Generate_WhenFormattedIsTrue_ReturnsCnpjWithSpecialCharacters()
     {
         // Act
         var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: true);
@@ -96,7 +96,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Generate_WhenFormattedIsFalse_ReturnsCadastroNacionalPessoaJuridicaWithoutSpecialCharacters()
+    public void Generate_WhenFormattedIsFalse_ReturnsCnpjWithoutSpecialCharacters()
     {
         // Act
         var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: false);
@@ -106,7 +106,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Generate_WhenUseLettersIsTrue_ReturnsCadastroNacionalPessoaJuridicaWithLetters()
+    public void Generate_WhenUseLettersIsTrue_ReturnsCnpjWithLetters()
     {
         // Act
         var cnpj = CadastroNacionalPessoaJuridica.Generate(useLetters: true);
@@ -116,7 +116,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Generate_WhenUseLettersIsFalse_ReturnsCadastroNacionalPessoaJuridicaWithoutLetters()
+    public void Generate_WhenUseLettersIsFalse_ReturnsCnpjWithoutLetters()
     {
         // Act
         var cnpj = CadastroNacionalPessoaJuridica.Generate(useLetters: false);
@@ -136,7 +136,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Format_WhenCadastroNacionalPessoaJuridicaIsValid_ReturnsCnpjWithSpecialCharacters()
+    public void Format_WhenCnpjIsValid_ReturnsCnpjWithSpecialCharacters()
     {
         // Arrange
         const string cnpj = "79594544000189";
@@ -149,7 +149,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Format_WhenCadastroNacionalPessoaJuridicaIsInvalid_ReturnsCnpjInformed()
+    public void Format_WhenCnpjIsInvalid_ReturnsCnpjInformed()
     {
         // Arrange
         const string cnpj = "7959454400018";
@@ -162,7 +162,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Format_WhenCadastroNacionalPessoaJuridicaIsEmpty_ReturnsCnpjInformed()
+    public void Format_WhenCnpjIsEmpty_ReturnsCnpjInformed()
     {
         // Arrange
         const string cnpj = "";
@@ -175,7 +175,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Format_WhenCadastroNacionalPessoaJuridicaIsWhitespace_ReturnsCnpjInformed()
+    public void Format_WhenCnpjIsWhitespace_ReturnsCnpjInformed()
     {
         // Arrange
         const string cnpj = " ";
@@ -188,7 +188,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Format_WhenCadastroNacionalPessoaJuridicaIsNull_ReturnsCnpjInformed()
+    public void Format_WhenCnpjIsNull_ReturnsCnpjInformed()
     {
         // Arrange
         string cnpj = null!;
@@ -201,7 +201,7 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void Format_WhenCadastroNacionalPessoaJuridicaHasSpecialCharacters_ReturnsCnpjWithSpecialCharacters()
+    public void Format_WhenCnpjHasSpecialCharacters_ReturnsCnpjWithSpecialCharacters()
     {
         // Arrange
         const string cnpj = "79.594.544/0001-89";
@@ -213,4 +213,278 @@ public class CadastroNacionalPessoaJuridicaTests
         cnpjFormatted.Should().Be(cnpj);
     }
     
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsValid_ReturnsTrue()
+    {
+        // Arrange
+        const string cnpj = "79594544000189";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValidUnmasked.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsValidWithLetters_ReturnsTrue()
+    {
+        // Arrange
+        const string cnpj = "0FQU3WLW6SCR69";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValidUnmaskedWithLetters.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsValidWithMask_ReturnsTrue()
+    {
+        // Arrange
+        const string cnpj = "79.594.544/0001-89";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValidMasked.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsValidWithMaskAndLetters_ReturnsTrue()
+    {
+        // Arrange
+        const string cnpj = "0F.QU3.WLW/6SCR-69";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValidMaskedWithLetters.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsInvalid_ReturnsFalse()
+    {
+        // Arrange
+        const string cnpj = "7959454400018";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsInvalidWithLetters_ReturnsFalse()
+    {
+        // Arrange
+        const string cnpj = "0FQU3WLW6SCR6";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsInvalidWithMask_ReturnsFalse()
+    {
+        // Arrange
+        const string cnpj = "79.594.544/0001-8";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsInvalidWithMaskAndLetters_ReturnsFalse()
+    {
+        // Arrange
+        const string cnpj = "0F.QU3.WLW/6SCR-6";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsEmpty_ReturnsInvalid()
+    {
+        // Arrange
+        const string cnpj = "";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsWhitespace_ReturnsInvalid()
+    {
+        // Arrange
+        const string cnpj = " ";
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void IsValidPattern_WhenCnpjIsNull_ReturnsInvalid()
+    {
+        // Arrange
+        string cnpj = null!;
+
+        // Act
+        var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void CreateCnpjRegex_ReturnsRegex()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateCnpjRegex();
+
+        // Assert
+        regex.Should().NotBeNull();
+    }
+    
+    [Fact]
+    public void CreateCnpjRegex_ReturnsRegexWithPattern()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateCnpjRegex();
+
+        // Assert
+        regex.ToString().Should().Be(@"^\d{14}$");
+    }
+    
+    [Fact]
+    public void CreateCnpjRegex_RegexShouldMatchCnpj()
+    {
+        // Arrange
+        var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: false);
+
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateCnpjRegex();
+
+        // Assert
+        regex.IsMatch(cnpj).Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CreateCnpjWithLettersRegex_ReturnsRegex()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
+
+        // Assert
+        regex.Should().NotBeNull();
+    }
+    
+    [Fact]
+    public void CreateCnpjWithLettersRegex_ReturnsRegexWithPattern()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
+
+        // Assert
+        regex.ToString().Should().Be(@"^[0-9A-Z]{14}$");
+    }
+    
+    [Fact]
+    public void CreateCnpjWithLettersRegex_RegexShouldMatchCnpj()
+    {
+        // Arrange
+        var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: false, useLetters: true);
+
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
+
+        // Assert
+        regex.IsMatch(cnpj).Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CreateMaskedCnpjRegex_ReturnsRegex()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjRegex();
+
+        // Assert
+        regex.Should().NotBeNull();
+    }
+    
+    [Fact]
+    public void CreateMaskedCnpjRegex_ReturnsRegexWithPattern()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjRegex();
+
+        // Assert
+        regex.ToString().Should().Be(@"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$");
+    }
+    
+    [Fact]
+    public void CreateMaskedCnpjRegex_RegexShouldMatchCnpj()
+    {
+        // Arrange
+        var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: true);
+
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjRegex();
+
+        // Assert
+        regex.IsMatch(cnpj).Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CreateMaskedCnpjWithLettersRegex_ReturnsRegex()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjWithLettersRegex();
+
+        // Assert
+        regex.Should().NotBeNull();
+    }
+    
+    [Fact]
+    public void CreateMaskedCnpjWithLettersRegex_ReturnsRegexWithPattern()
+    {
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjWithLettersRegex();
+
+        // Assert
+        regex.ToString().Should().Be(@"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}/[0-9A-Z]{4}-\d{2}$");
+    }
+    
+    [Fact]
+    public void CreateMaskedCnpjWithLettersRegex_RegexShouldMatchCnpj()
+    {
+        // Arrange
+        var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: true, useLetters: true);
+
+        // Act
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjWithLettersRegex();
+
+        // Assert
+        regex.IsMatch(cnpj).Should().BeTrue();
+    }
 }

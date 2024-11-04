@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace GeekSevenLabs.Utilities.Documents;
 
 /// <summary>
 /// Cadastro de Pessoa Física (CPF) é um documento usado para identificar um cidadão no Brasil.
 /// </summary>
-public static class CadastroPessoaFisica
+public static partial class CadastroPessoaFisica
 {
     private static readonly int[] Multiplier = [10, 9, 8, 7, 6, 5, 4, 3, 2];
     private const int MaxLengthWithoutMask = 11;
@@ -77,6 +78,18 @@ public static class CadastroPessoaFisica
 
         return cpf;
     }
+    
+    /// <summary>
+    /// Verifica se o CPF está no padrão correto.
+    /// </summary>
+    /// <param name="cpf">CPF Ex: 00000000000 or Ex: 000.000.000-00. </param>
+    /// <returns> CpfPatternMatchResult informa se o CPF está no padrão correto e se está com mascára. </returns>
+    public static CpfPatternMatchResult IsValidPattern(string cpf)
+    {
+        if(string.IsNullOrWhiteSpace(cpf)) return CpfPatternMatchResult.Invalid;
+        if (CreateCpfRegex().IsMatch(cpf)) return CpfPatternMatchResult.ValidUnmasked;
+        return CreateFormattedCpfRegex().IsMatch(cpf) ? CpfPatternMatchResult.ValidMasked : CpfPatternMatchResult.Invalid;
+    }
 
     private static bool TryCleanAndPreValidation(string cpf, [NotNullWhen(true)] out string? cleanedCpf)
     {
@@ -127,4 +140,11 @@ public static class CadastroPessoaFisica
         var rest = sum % 11;
         return rest < 2 ? 0 : 11 - rest;
     }
+    
+    
+    [GeneratedRegex(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$")]
+    public static partial Regex CreateFormattedCpfRegex();
+    
+    [GeneratedRegex(@"^\d{11}$")]
+    public static partial Regex CreateCpfRegex();
 }
