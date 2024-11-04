@@ -51,6 +51,7 @@ public class CadastroPessoaFisicaTests
     [InlineData("000.000.000-00")]
     [InlineData("111.111.111-11")]
     [InlineData("222.222.222-22")]
+    [InlineData("111.222.333-44")]
     public void IsValid_WhenCadastroPessoaFisicaIsInvalid_ReturnsFalse(string cpf)
     {
         // Act
@@ -383,7 +384,7 @@ public class CadastroPessoaFisicaTests
     public void CreateFormattedCpfRegex_WhenCalled_ReturnsRegex()
     {
         // Arrange and Act
-        var regex = CadastroPessoaFisica.CreateFormattedCpfRegex();
+        var regex = CadastroPessoaFisica.CreateMaskedCpfRegex();
 
         // Assert
         regex.Should().NotBeNull();
@@ -393,7 +394,7 @@ public class CadastroPessoaFisicaTests
     public void CreateFormattedCpfRegex_WhenCalled_ReturnsRegexWithCorrectPattern()
     {
         // Arrange and Act
-        var regex = CadastroPessoaFisica.CreateFormattedCpfRegex();
+        var regex = CadastroPessoaFisica.CreateMaskedCpfRegex();
 
         // Assert
         regex.ToString().Should().Be(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$");
@@ -403,7 +404,7 @@ public class CadastroPessoaFisicaTests
     public void CreateCpfRegex_WhenCalled_ReturnsRegex()
     {
         // Arrange and Act
-        var regex = CadastroPessoaFisica.CreateCpfRegex();
+        var regex = CadastroPessoaFisica.CreateUnmaskedCpfRegex();
 
         // Assert
         regex.Should().NotBeNull();
@@ -413,7 +414,7 @@ public class CadastroPessoaFisicaTests
     public void CreateCpfRegex_WhenCalled_ReturnsRegexWithCorrectPattern()
     {
         // Arrange and Act
-        var regex = CadastroPessoaFisica.CreateCpfRegex();
+        var regex = CadastroPessoaFisica.CreateUnmaskedCpfRegex();
 
         // Assert
         regex.ToString().Should().Be(@"^\d{11}$");
