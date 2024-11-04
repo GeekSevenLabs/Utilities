@@ -236,7 +236,7 @@ public class CadastroNacionalPessoaJuridicaTests
         var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
 
         // Assert
-        result.IsValidUnmaskedWithLetters.Should().BeTrue();
+        result.IsValidUnmasked.Should().BeTrue();
     }
     
     [Fact]
@@ -262,7 +262,7 @@ public class CadastroNacionalPessoaJuridicaTests
         var result = CadastroNacionalPessoaJuridica.IsValidPattern(cnpj);
 
         // Assert
-        result.IsValidMaskedWithLetters.Should().BeTrue();
+        result.IsValidMasked.Should().BeTrue();
     }
     
     [Fact]
@@ -357,80 +357,47 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void CreateCnpjRegex_ReturnsRegex()
+    public void CreateCnpjUnmaskedRegex_ReturnsRegex()
     {
         // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateCnpjRegex();
+        var regex = CadastroNacionalPessoaJuridica.CreateUnmaskedCnpjRegex();
 
         // Assert
         regex.Should().NotBeNull();
     }
     
     [Fact]
-    public void CreateCnpjRegex_ReturnsRegexWithPattern()
+    public void CreateCnpjUnmaskedRegex_ReturnsRegexWithPattern()
     {
         // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateCnpjRegex();
-
-        // Assert
-        regex.ToString().Should().Be(@"^\d{14}$");
-    }
-    
-    [Fact]
-    public void CreateCnpjRegex_RegexShouldMatchCnpj()
-    {
-        // Arrange
-        var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: false);
-
-        // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateCnpjRegex();
-
-        // Assert
-        regex.IsMatch(cnpj).Should().BeTrue();
-    }
-    
-    [Fact]
-    public void CreateCnpjWithLettersRegex_ReturnsRegex()
-    {
-        // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
-
-        // Assert
-        regex.Should().NotBeNull();
-    }
-    
-    [Fact]
-    public void CreateCnpjWithLettersRegex_ReturnsRegexWithPattern()
-    {
-        // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
+        var regex = CadastroNacionalPessoaJuridica.CreateUnmaskedCnpjRegex();
 
         // Assert
         regex.ToString().Should().Be(@"^[0-9A-Z]{12}\d{2}$");
     }
     
     [Fact]
-    public void CreateCnpjWithLettersRegex_RegexShouldMatchCnpj()
+    public void CreateMaskedCnpjRegex_RegexShouldMatchCnpjWithLettersNoMasked()
     {
         // Arrange
         var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: false, useLetters: true);
 
         // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
+        var regex = CadastroNacionalPessoaJuridica.CreateUnmaskedCnpjRegex();
 
         // Assert
         regex.IsMatch(cnpj).Should().BeTrue();
     }
     
     [Fact]
-    public void CreateCnpjWithLettersRegex_RegexShouldNotMatchCnpj()
+    public void CreateMaskedCnpjRegex_RegexShouldNotMatchCnpj()
     {
         // Arrange
         var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: false, useLetters: true);
         cnpj = cnpj[..^1] + "A";
 
         // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateCnpjWithLettersRegex();
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjRegex();
 
         // Assert
         regex.IsMatch(cnpj).Should().BeFalse();
@@ -447,16 +414,6 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void CreateMaskedCnpjRegex_ReturnsRegexWithPattern()
-    {
-        // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjRegex();
-
-        // Assert
-        regex.ToString().Should().Be(@"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$");
-    }
-    
-    [Fact]
     public void CreateMaskedCnpjRegex_RegexShouldMatchCnpj()
     {
         // Arrange
@@ -470,33 +427,23 @@ public class CadastroNacionalPessoaJuridicaTests
     }
     
     [Fact]
-    public void CreateMaskedCnpjWithLettersRegex_ReturnsRegex()
-    {
-        // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjWithLettersRegex();
-
-        // Assert
-        regex.Should().NotBeNull();
-    }
-    
-    [Fact]
     public void CreateMaskedCnpjWithLettersRegex_ReturnsRegexWithPattern()
     {
         // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjWithLettersRegex();
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjRegex();
 
         // Assert
         regex.ToString().Should().Be(@"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}/[0-9A-Z]{4}-\d{2}$");
     }
     
     [Fact]
-    public void CreateMaskedCnpjWithLettersRegex_RegexShouldMatchCnpj()
+    public void CreateMaskedCnpjRegex_RegexShouldMatchCnpjWithLetters()
     {
         // Arrange
         var cnpj = CadastroNacionalPessoaJuridica.Generate(formatted: true, useLetters: true);
 
         // Act
-        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjWithLettersRegex();
+        var regex = CadastroNacionalPessoaJuridica.CreateMaskedCnpjRegex();
 
         // Assert
         regex.IsMatch(cnpj).Should().BeTrue();
