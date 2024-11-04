@@ -87,8 +87,8 @@ public static partial class CadastroPessoaFisica
     public static CpfPatternMatchResult IsValidPattern(string cpf)
     {
         if(string.IsNullOrWhiteSpace(cpf)) return CpfPatternMatchResult.Invalid;
-        if (CreateCpfRegex().IsMatch(cpf)) return CpfPatternMatchResult.ValidUnmasked;
-        return CreateFormattedCpfRegex().IsMatch(cpf) ? CpfPatternMatchResult.ValidMasked : CpfPatternMatchResult.Invalid;
+        if (CreateUnmaskedCpfRegex().IsMatch(cpf)) return CpfPatternMatchResult.ValidUnmasked;
+        return CreateMaskedCpfRegex().IsMatch(cpf) ? CpfPatternMatchResult.ValidMasked : CpfPatternMatchResult.Invalid;
     }
 
     private static bool TryCleanAndPreValidation(string cpf, [NotNullWhen(true)] out string? cleanedCpf)
@@ -143,8 +143,8 @@ public static partial class CadastroPessoaFisica
     
     
     [GeneratedRegex(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$")]
-    public static partial Regex CreateFormattedCpfRegex();
+    public static partial Regex CreateMaskedCpfRegex();
     
     [GeneratedRegex(@"^\d{11}$")]
-    public static partial Regex CreateCpfRegex();
+    public static partial Regex CreateUnmaskedCpfRegex();
 }
